@@ -1,4 +1,4 @@
-"""Python region geospatial utilities."""
+"""Reusable Python region geospatial utilities."""
 
 import os
 from collections.abc import Sequence
@@ -32,11 +32,11 @@ RegionType = (
     | IO
 )
 
-_generate_reular_grid_gser_doc = """
+_generate_regular_grid_gser_doc = """
 Get a regular grid within a region.
 
 Parameters
-----------{}
+----------%s
 res : float or tuple of floats.
     The grid resolution in units of the region's CRS. A scalar value will be interpreted
     as the same resolution in both x and y directions, whereas a tuple will be
@@ -44,13 +44,13 @@ res : float or tuple of floats.
 crs : CRS-like, optional
     The CRS of the grid, required if the region is a naive geometry (without a CRS set),
     ignored otherwise.
-offset : {{"center", "top-left"}}, optional
+offset : {"center", "top-left"}, optional
     If set to "center" and the region dimensions and target resolution do not divide
     evenly, the grid is offsetted so that the region bounds are in the center of the
     grid. If set to "top-left", the grid starts at the top-left corner of the region.
     If None, the default value set in `settings.GRID_OFFSET` will be used. Ignored if
     the region dimensions and the desired resolution divide evenly.
-geometry_type : {{"point", "polygon"}}, optional
+geometry_type : {"point", "polygon"}, optional
     The type of geometry to return. If "point", the grid will be returned as a GeoSeries
     of points. If "polygon", the grid will be returned as a GeoSeries of polygons. If
     None, the default value set in `settings.GRID_GEOMETRY_TYPE` will be used.
@@ -152,13 +152,25 @@ def generate_regular_grid_gser(  # noqa: D103
     ).rename_axis(grid_index_name)
 
 
-generate_regular_grid_gser.__doc__ = _generate_reular_grid_gser_doc.format(
-    "\nregion : region-like\n    The region for which to generate the grid.\n",
-)
+region_arg = "\nregion : region-like\n    The region for which to generate the grid."
+generate_regular_grid_gser.__doc__ = _generate_regular_grid_gser_doc % region_arg
 
 
 class RegionMixin:
-    """Mixin class to add a `region` attribute to a class."""
+    """Mixin class to add a `region` attribute to a class.
+
+    The `region` property setter accepts the following values:
+
+    - A string with a place name (Nominatim query) to geocode (requires osmnx).
+    - A sequence with the west, south, east and north bounds.
+    - A geometric object, e.g., shapely geometry, or a sequence of geometric objects
+      (polygon or multi-polygon). In such a case, the value is passed as the `data`
+      argument of the GeoSeries constructor, and needs to be in the same CRS as the one
+      provided through the `crs` argument.
+    - A geopandas geo-series or geo-data frame.
+    - A filename or URL, a file-like object opened in binary ('rb') mode, or a Path
+      object that will be passed to `geopandas.read_file`.
+    """
 
     @property
     def region(self) -> gpd.GeoDataFrame | None:
@@ -300,4 +312,4 @@ class RegionMixin:
             grid_index_name=grid_index_name,
         )
 
-    generate_regular_grid_gser.__doc__ = _generate_reular_grid_gser_doc
+    generate_regular_grid_gser.__doc__ = _generate_regular_grid_gser_doc % ""

@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pyregeon"
-version = "0.1.0"
-description = "Python utilities to work with geospatial regions."
+version = "0.0.0"
+description = "Reusable Python utilities to work with geospatial regions."
 readme = "README.md"
 authors = [
   {email = "marti.bosch@epfl.ch", name = "Martí Bosch"}
@@ -60,9 +60,6 @@ Repository = "https://github.com/martibosch/pyregeon"
 major_version_zero = true
 name = "cz_conventional_commits"
 tag_format = "v$version"
-version_files = [
-  "docs/conf.py"
-]
 version_provider = "pep621"
 version_scheme = "semver"
 

@@ -2,5 +2,5 @@
 
 ```{eval-rst}
 .. automodule:: pyregeon
-   :members:
+    :members:
 ```
