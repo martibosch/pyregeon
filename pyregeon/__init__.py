@@ -227,7 +227,7 @@ class RegionMixin:
         """
         if isinstance(region, gpd.GeoSeries):
             # convert it to a GeoDataFrame
-            region = region.to_frame()
+            region = gpd.GeoDataFrame(geometry=region)
         if isinstance(region, gpd.GeoDataFrame):
             # TODO: DRY crs processing with `generate_regular_grid_gser`?
             # we cannot use the `getattr` default because the crs attribute may actually
