@@ -4,7 +4,7 @@ build-backend = "uv_build"
 
 [project]
 name = "pyregeon"
-version = "0.1.1"
+version = "0.2.0"
 description = "Reusable Python utilities to work with geospatial regions."
 readme = "README.md"
 authors = [
