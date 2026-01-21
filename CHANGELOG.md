@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## [v0.2.0] - 2026-01-21
+
+### :boom: BREAKING CHANGES
+
+- due to [`259264f`](https://github.com/martibosch/pyregeon/commit/259264fd1ba96890706024eb19724eafd376ae8c) - raise valueerror when setting with nominatim query but no ox *(commit by [@martibosch](https://github.com/martibosch))*:
+
+  raise valueerror when setting with nominatim query but no ox
+
+### :sparkles: New Features
+
+- [`259264f`](https://github.com/martibosch/pyregeon/commit/259264fd1ba96890706024eb19724eafd376ae8c) - raise valueerror when setting with nominatim query but no ox *(commit by [@martibosch](https://github.com/martibosch))*
+
 ## [v0.1.1] - 2025-04-07
 
 ### :bug: Bug Fixes
@@ -10,3 +22,4 @@
 
 - initial release
   \[v0.1.1\]: https://github.com/martibosch/pyregeon/compare/v0.1.0...v0.1.1
+  \[v0.2.0\]: https://github.com/martibosch/pyregeon/compare/v0.1.1...v0.2.0
