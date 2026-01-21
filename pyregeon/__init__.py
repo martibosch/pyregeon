@@ -288,7 +288,13 @@ class RegionMixin:
 
                 if geocode_to_gdf_kwargs is None:
                     geocode_to_gdf_kwargs = {}
-                region = ox.geocode_to_gdf(region, **geocode_to_gdf_kwargs).iloc[:1]
+                try:
+                    region = ox.geocode_to_gdf(region, **geocode_to_gdf_kwargs).iloc[:1]
+                except AttributeError:
+                    raise ValueError(
+                        "Passing a Nominatim query as the `region` argument requires "
+                        "the osmnx package."
+                    )
 
             # if a CRS has been provided, set it (instead of OSM default)
             if crs is not None:

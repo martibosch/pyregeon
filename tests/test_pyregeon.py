@@ -1,16 +1,40 @@
 """Tests for pyregeon."""
 
+import importlib
 import shutil
+import sys
 import tempfile
 import unittest
+from collections.abc import Generator
 from os import path
 
 import geopandas as gpd
 import osmnx as ox
+import pytest
 from shapely.geometry import Point, Polygon
 
 import pyregeon
 from pyregeon import settings
+
+
+@pytest.fixture
+def unload_osmnx(monkeypatch: pytest.MonkeyPatch) -> Generator[None, None, None]:
+    """Fake that osmnx is not installed.
+
+    Source: https://stackoverflow.com/a/79280624
+    """
+    for module in sys.modules:
+        # ensure that `osmnx` and all its submodules are not loadable
+        if module.startswith("osmnx") or module == "osmnx":
+            monkeypatch.setitem(sys.modules, module, None)
+
+    with pytest.raises(ImportError):
+        # ensure that `osmnx` cannot be imported
+        import osmnx  # noqa: F401
+
+    importlib.reload(pyregeon)
+    yield  # undo the monkeypatch
+    importlib.reload(pyregeon)  # make `osmnx` available again
 
 
 class NaiveTestObject(pyregeon.RegionMixin):
@@ -64,7 +88,20 @@ class TestRegion(unittest.TestCase):
     def tearDown(self):
         shutil.rmtree(self.tmp_dir)
 
+    @pytest.mark.usefixtures("unload_osmnx")
+    def test_no_osmnx(self):
+        # test that we can only provide a Nominatim query if osmnx is installed
+        for _class in [
+            NaiveTestObject,
+            TestObject,
+            TestObjectCaps,
+        ]:
+            with pytest.raises(ValueError):
+                _test_region_and_class(self.nominatim_query, _class)
+
     def test_set_region(self):
+        # idk why, but without this reload the `unload_osmnx` fixture does not work well
+        importlib.reload(pyregeon)
         # test with no required CRS argument
         for region in self.regions_with_crs:
             for _class in [
