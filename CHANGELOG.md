@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## [v0.2.1] - 2026-01-26
+
+### :bug: Bug Fixes
+
+- [`ca165f3`](https://github.com/martibosch/pyregeon/commit/ca165f3e29cd6dcaf3331140f718a578e834a8b9) - license info in 'project' key of pyproject.toml *(commit by [@martibosch](https://github.com/martibosch))*
+
 ## [v0.2.0] - 2026-01-21
 
 ### :boom: BREAKING CHANGES
@@ -23,3 +29,4 @@
 - initial release
   \[v0.1.1\]: https://github.com/martibosch/pyregeon/compare/v0.1.0...v0.1.1
   \[v0.2.0\]: https://github.com/martibosch/pyregeon/compare/v0.1.1...v0.2.0
+  \[v0.2.1\]: https://github.com/martibosch/pyregeon/compare/v0.2.0...v0.2.1
