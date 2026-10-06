@@ -8,7 +8,7 @@ version = "0.2.1"
 description = "Reusable Python utilities to work with geospatial regions."
 readme = "README.md"
 authors = [
-  {email = "marti.bosch@epfl.ch", name = "Martí Bosch"}
+  { email = "marti.bosch@epfl.ch", name = "Martí Bosch" }
 ]
 classifiers = [
   "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
@@ -80,15 +80,15 @@ python = ">=3.10,<3.14"
 gdal = ">=3"
 
 [tool.pixi.environments]
-default = {solve-group = "default"}
-dev = {features = ["dev"], solve-group = "default"}
-doc = {features = ["doc"], solve-group = "default"}
-ox = {features = ["ox"], solve-group = "default"}
-test = {features = ["ox", "test"], solve-group = "default"}
+default = { solve-group = "default" }
+dev = { features = ["dev"], solve-group = "default" }
+doc = { features = ["doc"], solve-group = "default" }
+ox = { features = ["ox"], solve-group = "default" }
+test = { features = ["ox", "test"], solve-group = "default" }
 
 [tool.pixi.feature.dev.tasks]
 build = "python -m build"
-check = {cmd = "twine check dist/*", depends-on = ["build"]}
+check = { cmd = "twine check dist/*", depends-on = ["build"] }
 
 [tool.pixi.feature.doc.tasks]
 build-doc = "sphinx-build docs docs/_build"
